@@ -6,7 +6,6 @@ class BinVO(models.Model):
     bin_number = models.PositiveSmallIntegerField()
     bin_size = models.PositiveSmallIntegerField()
 
-
 class Shoes(models.Model):
     manufacturer = models.CharField(max_length=200)
     model_name = models.CharField(max_length=200)
@@ -17,3 +16,6 @@ class Shoes(models.Model):
         related_name="shoes",
         on_delete=models.CASCADE,
     )
+
+    def __str__(self):
+        return f"{self.manufacturer} - {self.model_name}"

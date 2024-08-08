@@ -36,7 +36,7 @@ class ShoesDetailEncoder(ModelEncoder):
 @require_http_methods(["GET", "POST"])
 def api_list_shoes(request, bin_vo_id=None):
     if request.method == "GET":
-        shoes = Shoes.objects.filter(bin=bin_vo_id)
+        shoes = Shoes.objects.all()
         return JsonResponse(
             {"shoes": shoes},
             encoder=ShoesListEncoder,
@@ -45,8 +45,9 @@ def api_list_shoes(request, bin_vo_id=None):
         content = json.loads(request.body)
 
         try:
-            bin_href = f'/api/bin/{bin_vo_id}/'
-            bin = BinVO.objects.get(import_href=bin_href)
+            # bin_href = f'/api/bins/{bin_vo_id}/'
+            bin_href = content["bin"]
+            bin = BinVO.objects.get(import_href=bin_href) #this is doing a search of the database, it's matching the import_href to the href in the data entered in Insomnia
             content["bin"] = bin
 
 
@@ -63,3 +64,31 @@ def api_list_shoes(request, bin_vo_id=None):
             safe=False,
         )
 
+@require_http_methods(["GET", "DELETE", "PUT"])
+def api_show_shoes(request, id):
+    if request.method == "GET":
+        shoes = Shoes.objects.get(id=id)
+        return JsonResponse(shoes, encoder=ShoesDetailEncoder, safe=False)
+    elif request.method == "DELETE":
+        count, _ = Shoes.objects.filter(id=id).delete()
+        return JsonResponse({"deleted": count > 0})
+
+    else:
+        content = json.loads(request.body)
+        try:
+            if "bin" in content:
+                bin = BinVO.objects.get(id=content["bin"])
+                content["bin"] = bin
+        except BinVO.DoesNotExist:
+            return JsonResponse(
+                {"message": "Bin does not exist"},
+                status=400,
+            )
+
+        Shoes.objects.filter(id=id).update(**content)
+        shoes = Shoes.objects.get(id=id)
+        return JsonResponse(
+            shoes,
+            encoder=ShoesDetailEncoder,
+            safe=False,
+        )
