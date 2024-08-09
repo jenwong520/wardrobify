@@ -6,6 +6,10 @@ Team:
 * Rachel - Hats microservice
 
 
+* Person 1 - Which microservice?
+Rachel - Hats
+* Person 2 - Which microservice?
+Jen - Shoes
 
 ## Design
 
