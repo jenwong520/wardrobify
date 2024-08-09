@@ -18,7 +18,11 @@ class BinVODetailEncoder(ModelEncoder):
 
 class ShoesListEncoder(ModelEncoder):
     model = Shoes
-    properties = ["manufacturer"]
+    properties = [
+        "manufacturer",
+        "model_name",
+        "id"
+        ]
 
 class ShoesDetailEncoder(ModelEncoder):
     model = Shoes
@@ -45,9 +49,10 @@ def api_list_shoes(request, bin_vo_id=None):
         content = json.loads(request.body)
 
         try:
-            # bin_href = f'/api/bins/{bin_vo_id}/'
-            bin_href = content["bin"]
-            bin = BinVO.objects.get(import_href=bin_href) #this is doing a search of the database, it's matching the import_href to the href in the data entered in Insomnia
+            # bin_href = f'/api/bins/{content["bin"]}/'
+            # print("##########", bin_href)
+            bin_id = content["bin"]
+            bin = BinVO.objects.get(id=bin_id) #this is doing a search of the database, it's matching the import_href to the href in the data entered in Insomnia
             content["bin"] = bin
 
 
