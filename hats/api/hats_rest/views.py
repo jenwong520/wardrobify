@@ -18,6 +18,7 @@ class HatListEncoder(ModelEncoder):
         "fabric",
         "color",
         "picture_url",
+        "id",
     ]
 
 class HatDetailEncoder(ModelEncoder):
@@ -47,8 +48,8 @@ def api_list_hats(request):
         content = json.loads(request.body)
 
         try:
-            location_href = content["location"]
-            location = LocationVO.objects.get(import_href=location_href)
+            my_href = content["location"]
+            location = LocationVO.objects.get(import_href=my_href)
             content["location"] = location
         except LocationVO.DoesNotExist:
             return JsonResponse(
@@ -91,13 +92,20 @@ def api_show_hats(request, pk):
                         status=400,
                     )
 
+            try:
                 Hats.objects.filter(id=pk).update(**content)
                 hats = Hats.objects.get(id=pk)
                 return JsonResponse(
-                    location,
+                    hats,
                     encoder=HatDetailEncoder,
                     safe=False,
                 )
+            except Hats.DoesNotExist:
+                return JsonResponse(
+                {"Message": "Hat Not Found"},
+                status=404
+                )
+
     except Hats.DoesNotExist:
         return JsonResponse(
             {"Message": "Hat Not Found"},
