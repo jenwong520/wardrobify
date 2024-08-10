@@ -6,9 +6,6 @@ class LocationVO(models.Model):
     section_number = models.PositiveIntegerField()
     shelf_number = models.PositiveIntegerField()
 
-    def __str__(self):
-        return f"{self.closet_name} - Section {self.section_number}, Shelf {self.shelf_number}"
-
 class Hats(models.Model):
     style_name = models.CharField(max_length=200)
     fabric = models.CharField(max_length=200)

@@ -21,6 +21,13 @@ class HatListEncoder(ModelEncoder):
         "id",
     ]
 
+    def get_extra_data(self, o):
+        return {
+            "closet_name": o.location.closet_name,
+            "section_number": o.location.section_number,
+            "shelf_number": o.location.shelf_number,
+        }
+
 class HatDetailEncoder(ModelEncoder):
     model = Hats
     properties = [
