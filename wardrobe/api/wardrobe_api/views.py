@@ -110,7 +110,7 @@ def api_location(request, pk):
                 safe=False
             )
         except Location.DoesNotExist:
-            response = JsonResponse({"message": "Does not exist"})
+            response = JsonResponse({"Message": "Location Doesn't Exist"})
             response.status_code = 404
             return response
     elif request.method == "DELETE":
@@ -123,7 +123,7 @@ def api_location(request, pk):
                 safe=False,
             )
         except Location.DoesNotExist:
-            return JsonResponse({"message": "Does not exist"})
+            return JsonResponse({"Message": "Location Doesn't Exist"})
     else: # PUT
         try:
             content = json.loads(request.body)
@@ -140,7 +140,7 @@ def api_location(request, pk):
                 safe=False,
             )
         except Location.DoesNotExist:
-            response = JsonResponse({"message": "Does not exist"})
+            response = JsonResponse({"Message": "Location Doesn't Exist"})
             response.status_code = 404
             return response
 
