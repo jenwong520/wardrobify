@@ -7,7 +7,6 @@ import HatsList from './HatsList';
 import HatsForm from './HatsForm';
 
 function App(props) {
-
 	if (props.shoes === undefined && props.hats === undefined) {
 		return null;
 	}
