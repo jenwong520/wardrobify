@@ -9,7 +9,7 @@ import HatsForm from './HatsForm';
 
 
 function App(props) {
-	if (props.hats === undefined) {
+	if (props.shoes === undefined && props.hats === undefined) {
 		return null;
 	}
 	return (
@@ -20,7 +20,7 @@ function App(props) {
 					<Route path="/" element={<MainPage />} />
 					<Route path="/shoes" element={<ShoesList shoes={props.shoes} />} />
 					<Route path="/shoes/create" element={<ShoesForm />} />
-					<Route path="/hats" element={<HatsList hats={props.hats}/>} />
+					<Route path="/hats" element={<HatsList hats={props.hats} />} />
 					<Route path="/hats/create" element={<HatsForm />} />
 				</Routes>
 			</div>
