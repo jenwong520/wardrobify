@@ -9,7 +9,7 @@ import HatsForm from './HatsForm';
 
 
 function App(props) {
-	if (props.hats === undefined) {
+	if (props.shoes === undefined && props.hats === undefined) {
 		return null;
 	}
 	return (

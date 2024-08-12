@@ -1,5 +1,4 @@
 function HatsList(props) {
-
     return (
         <table className='table table-striped'>
             <thead>
@@ -29,7 +28,7 @@ function HatsList(props) {
                 })}
             </tbody>
         </table>
-    )
+    );
 }
 
 export default HatsList;

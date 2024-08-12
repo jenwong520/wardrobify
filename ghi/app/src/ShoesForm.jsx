@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-function ShoesForm () {
+function ShoesForm() {
     const [bin, setBins] = useState([]);
 
     const fetchData = async () => {

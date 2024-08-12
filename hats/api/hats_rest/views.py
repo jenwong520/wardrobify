@@ -60,7 +60,7 @@ def api_list_hats(request):
             content["location"] = location
         except LocationVO.DoesNotExist:
             return JsonResponse(
-                {"Message": "Invalid Location ID"},
+                {"Message": "Invalid Location ID 1"},
                 status=400,
             )
 
@@ -95,7 +95,7 @@ def api_show_hats(request, pk):
                     content["location"] = location
                 except LocationVO.DoesNotExist:
                     return JsonResponse(
-                        {"Message": "Invalid Location ID"},
+                        {"Message": "Invalid Location ID 2"},
                         status=400,
                     )
 
